@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Collision lab</title><link rel="stylesheet" href="style.css"></head>
+<body><main id="collision-app">
+  <header><h1>Collision lab<span>Virtual camera · edge predictor</span></h1><label class="preset-label">Scene<select id="preset"><option value="wall">Single wall</option><option value="bumpers">Bumper course</option><option value="vortex">Vortex arena</option></select></label></header>
+  <section class="workspace" aria-label="Simulation">
+    <div class="simulation">
+      <div class="panel-title"><label>Edit<select id="edit-mode"><option value="launch">Place ball</option><option value="add">Add bumper</option><option value="move">Move bumper</option><option value="remove">Remove bumper</option><option value="field">Move force center</option></select></label><label class="check"><input id="reveal" type="checkbox" checked> Actual motion</label></div>
+      <canvas id="world" role="img" aria-label="Editable scene. Use the edit menu and click the scene, or use the numeric controls below."></canvas>
+      <div class="legend"><span><i class="line dashed"></i>First prediction</span><span><i class="line dotted"></i>Updated</span><span><i class="line solid"></i>Actual</span><span id="dirty">Click to place the ball</span></div>
+    </div>
+    <aside class="camera-panel">
+      <div class="panel-title"><h2>Camera</h2><span class="mono">96 × 64</span></div>
+      <canvas id="camera" role="img" aria-label="Camera pixels received by the predictor"></canvas>
+      <div class="camera-caption"><span id="camera-status">Ready</span><span id="camera-time">—</span></div>
+      <div class="edge-state"><span>EDGE MODEL</span><dl><div><dt>Bounce</dt><dd id="student-e">—</dd></div><div><dt>Drag</dt><dd id="student-drag">—</dd></div><div><dt>Learned trials</dt><dd id="student-n">0</dd></div></dl><p id="model-scope">Pixels + known geometry</p></div>
+    </aside>
+    <div class="transport"><button id="play" type="button">Play</button><input id="timeline" type="range" min="0" max="1000" value="0" aria-label="Replay time"><output id="time-value">0.00 s</output><button id="finish" type="button">Outcome</button></div>
+    <div class="event-strip" id="event-strip" role="status" aria-live="polite">Ready.</div>
+  </section>
+  <section class="metrics" aria-label="Results"><div><span>First prediction</span><strong id="frozen-error">—</strong><small id="frozen-detail">Position RMSE</small></div><div><span>Updated prediction</span><strong id="corrected-error">—</strong><small id="correction-detail">Position RMSE</small></div><div><span>Frames received</span><strong id="frame-count">—</strong><small id="frame-detail">Fixed request budget</small></div></section>
+  <section class="editor" aria-label="Scene controls">
+    <div class="editor-group"><h2>Launch</h2><div class="launch-grid">
+      <label>X · m<input data-config="startX" id="startX" type="number" min="0.06" max="1.54" step="any" value="0.26"></label>
+      <label>Y · m<input data-config="startY" id="startY" type="number" min="0.06" max="1.14" step="any" value="0.59"></label>
+      <label>Speed · m/s<input data-config="speed" id="speed" type="number" min="0" max="4" step="any" value="1.35"></label>
+      <label>Direction · °<input data-config="headingDeg" id="headingDeg" type="number" min="-180" max="180" step="any" value="0"></label>
+      <label>Start jitter · m<input data-config="launchJitter" id="launchJitter" type="number" min="0" max="0.15" step="any" value="0"></label>
+      <label class="check boundary"><input data-config="arenaWalls" id="arenaWalls" type="checkbox"> Enclose arena</label>
+    </div></div>
+    <div class="editor-group"><div class="group-top"><h2>Bumpers</h2><div><button id="add-obstacle" type="button">+ Add</button><button id="clear-obstacles" type="button" class="text-button">Clear</button></div></div><div id="obstacle-list" class="obstacle-list"></div></div>
+    <div class="editor-group"><h2>Nonlinear forces</h2><div class="force-grid">
+      <label>Speed² drag <output id="quadraticDrag-value"></output><input data-config="quadraticDrag" id="quadraticDrag" type="range" min="0" max="2" step="any" value="0"></label>
+      <label>Field<select data-config="fieldMode" id="fieldMode"><option value="vortex">Vortex</option><option value="attract">Attraction</option><option value="repel">Repulsion</option></select></label>
+      <label>Strength <output id="fieldStrength-value"></output><input data-config="fieldStrength" id="fieldStrength" type="range" min="0" max="8" step="any" value="0"></label>
+      <label>Radius · m <output id="fieldRadius-value"></output><input data-config="fieldRadius" id="fieldRadius" type="range" min="0.05" max="0.8" step="any" value="0.3"></label>
+      <label>Field X · m<input data-config="fieldX" id="fieldX" type="number" min="0" max="1.6" step="any" value="0.95"></label>
+      <label>Field Y · m<input data-config="fieldY" id="fieldY" type="number" min="0" max="1.2" step="any" value="0.6"></label>
+    </div></div>
+  </section>
+  <details class="advanced"><summary>Camera & randomness</summary><div class="controls-grid">
+    <label>Bounce variation <output id="bounceRandomness-value"></output><input data-config="bounceRandomness" id="bounceRandomness" type="range" min="0" max="0.3" step="any" value="0.08"></label>
+    <label>Pixel noise <output id="cameraNoise-value"></output><input data-config="cameraNoise" id="cameraNoise" type="range" min="0" max="24" step="any" value="8"></label>
+    <label>Impact blackout <output id="blackoutMs-value"></output><input data-config="blackoutMs" id="blackoutMs" type="range" min="0" max="550" step="any" value="170"></label>
+    <label>Sampling<select data-config="sampling" id="sampling"><option value="uniform">Uniform</option><option value="burst">Near predicted impact</option></select></label>
+    <label>Seed<input data-config="seed" id="seed" type="number" min="0" max="4294967295" step="1" value="42"></label>
+    <label>Restitution <output id="restitution-value"></output><input data-config="restitution" id="restitution" type="range" min="0.2" max="0.96" step="any" value="0.76"></label>
+    <label>Roughness <output id="roughnessDeg-value"></output><input data-config="roughnessDeg" id="roughnessDeg" type="range" min="0" max="16" step="any" value="4"></label>
+    <label>Linear drag <output id="drag-value"></output><input data-config="drag" id="drag" type="range" min="0" max="0.5" step="any" value="0.14"></label>
+    <label>Frame loss <output id="dropRate-value"></output><input data-config="dropRate" id="dropRate" type="range" min="0" max="0.4" step="any" value="0.04"></label>
+    <label>Exposure <output id="exposureMs-value"></output><input data-config="exposureMs" id="exposureMs" type="range" min="0" max="70" step="any" value="14"></label>
+    <label>Frame budget<input data-config="frameBudget" id="frameBudget" type="number" min="16" max="64" step="1" value="28"></label>
+  </div></details>
+  <div class="actions"><button id="run" type="button" class="primary">Run scene</button><button id="challenge" type="button">Find harder scene</button><button id="train" type="button">Train ×12</button><button id="evaluate" type="button">Test unseen</button><button id="reset" type="button" class="text-button">Reset model</button></div>
+  <div class="work-status" role="status" aria-live="polite"><span id="work-status">Ready.</span><progress id="progress" value="0" max="1" hidden></progress></div><p id="error" role="alert" hidden></p>
+  <section id="evaluation" class="evaluation" hidden aria-labelledby="evaluation-title"><div class="section-top"><h2 id="evaluation-title">Unseen trials</h2><span id="eval-count" class="mono"></span></div><div class="table-wrap"><table><thead><tr><th>Model</th><th>Mean RMSE</th><th>90th percentile</th><th>Updated RMSE</th></tr></thead><tbody id="eval-body"></tbody></table></div><p id="eval-summary"></p></section>
+  <details class="details"><summary>Run details</summary><div class="detail-row"><span>Image data: <b id="bytes">—</b></span><span>Browser fit: <b id="fit-time">—</b></span><button id="export" type="button">Export JSON</button><a href="README.md">How it works</a></div><ol id="log" class="log"></ol><p class="disclaimer">Simulated hardware. Shading is uncalibrated model spread. The predictor models linear drag and known obstacles; added force fields are unmodeled.</p></details>
+</main><script src="engine.js"></script><script src="app.js"></script></body></html>

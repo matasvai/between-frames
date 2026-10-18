@@ -1,0 +1,2906 @@
+{
+  "generatedAt": "2026-09-26T16:45:36.490Z",
+  "engineSha256": "421b42f5cd81686568370a4c0550fabebc7c461279f4d90b6f13b07f62f21278",
+  "units": {
+    "distances": "metres",
+    "times": "seconds unless explicitly Ms",
+    "errors": "position RMSE, not endpoint distance"
+  },
+  "protocol": {
+    "forecast": "Shared six-frame early request prefix, forecast frozen at 0.46 seconds.",
+    "correction": "Adequate isolated-wall rebound fit, or a recent stable four-observation motion fit that disagrees with the frozen forecast; a separate forecast is frozen at that time.",
+    "camera": "96 by 64 grayscale raster. Shutter integrates [packet timestamp minus exposure, packet timestamp]; this induces observation lag.",
+    "metric": "Frozen RMSE begins at max(freeze time + 0.03 seconds, first collision time + 0.03 seconds), or freeze time + 0.03 if no contact. Simulator truth is used only for evaluation.",
+    "launchVariation": "Clean training/test launches use a 0.02 m uniform-disk position jitter. Extension fixtures use 0.015 m. Default stochastic trials retain a fixed launch and vary hidden impacts/camera noise.",
+    "learning": "Effective restitution and linear drag fitted from adequate isolated-wall raster trajectories; cold prior restitution 0.58 and drag 0.06. Multiple-surface scenes abstain from parameter fitting.",
+    "adversary": "Bounded search over sensor settings, impact randomness, surface roughness and seed. Starting settings and geometry are retained; enabled nonlinear force coefficients may also vary. This default evaluation has no nonlinear forces enabled."
+  },
+  "regimes": [
+    {
+      "name": "varied clean launches with 250 ms impact blackout",
+      "config": {
+        "seed": 42,
+        "restitution": 0.76,
+        "bounceRandomness": 0,
+        "roughnessDeg": 0,
+        "drag": 0.14,
+        "cameraNoise": 0,
+        "dropRate": 0,
+        "blackoutMs": 250,
+        "exposureMs": 0,
+        "frameBudget": 28,
+        "sampling": "uniform",
+        "startX": 0.26,
+        "startY": 0.59,
+        "speed": 1.35,
+        "headingDeg": 0,
+        "launchJitter": 0.02,
+        "obstacles": [],
+        "quadraticDrag": 0,
+        "fieldStrength": 0,
+        "fieldX": 0.95,
+        "fieldY": 0.6,
+        "fieldRadius": 0.3,
+        "fieldMode": "attract",
+        "arenaWalls": false
+      },
+      "initialStudent": {
+        "restitution": 0.58,
+        "drag": 0.06,
+        "tangentRetention": 0.96,
+        "episodes": 0,
+        "bounceStd": 0.13,
+        "roughnessStd": 0.07,
+        "restitutionM2": 0,
+        "restitutionMean": 0,
+        "dragWeight": 0,
+        "lastFit": null
+      },
+      "trainedStudent": {
+        "restitution": 0.7595563111941441,
+        "drag": 0.13949999999999999,
+        "tangentRetention": 0.96,
+        "episodes": 20,
+        "bounceStd": 0.035,
+        "roughnessStd": 0.015,
+        "restitutionM2": 0.00004338281861759778,
+        "restitutionMean": 0.7595563111941441,
+        "dragWeight": 0,
+        "lastFit": {
+          "restitution": 0.7596448158158611,
+          "drag": 0.14,
+          "residual": 0.0003203785405453319,
+          "observations": 25
+        }
+      },
+      "training": {
+        "episodes": 20,
+        "firstSeed": 1000,
+        "lastSeed": 1019
+      },
+      "heldOut": {
+        "episodes": 40,
+        "firstSeed": 8000,
+        "lastSeed": 8039
+      },
+      "pairedForecastCount": 40,
+      "coldMeanFrozenRMSEM": 0.0912938267123013,
+      "trainedMeanFrozenRMSEM": 0.0009199642770882348,
+      "sampling": {
+        "pairedCorrectionCount": 40,
+        "equalRequestedBudget": 28,
+        "uniformMeanCorrectionTimeS": 1.4542857142857153,
+        "burstMeanCorrectionTimeS": 1.3610186469425705,
+        "uniformMeanDetectionDelayS": 0.43449888856536545,
+        "burstMeanDetectionDelayS": 0.34123182122222173,
+        "uniformMeanCorrectedRMSEM": 0.0010611397067133088,
+        "burstMeanCorrectedRMSEM": 0.0009793064770344134,
+        "uniformMeanReceivedFrames": 25.125,
+        "burstMeanReceivedFrames": 21,
+        "note": "Equal requested frames, not equal delivered frames. Corrected forecasts begin at different times; their RMSE values are not a common-horizon head-to-head accuracy test."
+      },
+      "records": [
+        {
+          "seed": 8000,
+          "coldFrozenRMSEM": 0.08953501476279378,
+          "trainedFrozenRMSEM": 0.0008317378224608295,
+          "uniform": {
+            "correctedRMSEM": 0.0009497394422078558,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009211433712312713,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0276320297291646,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0011762035830291157,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008983230420406031,
+            "correctionTimeS": 1.364193635770861,
+            "impactTimeS": 1.0276320297291646,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8001,
+          "coldFrozenRMSEM": 0.09123259732349154,
+          "trainedFrozenRMSEM": 0.0020458110659076234,
+          "uniform": {
+            "correctedRMSEM": 0.0007000438865302758,
+            "frozenRMSEOnCorrectionHorizonM": 0.0022613788380800837,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0333400633033176,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.002636551652748955,
+            "frozenRMSEOnCorrectionHorizonM": 0.0022185932043634117,
+            "correctionTimeS": 1.3673962288544945,
+            "impactTimeS": 1.0333400633033176,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8002,
+          "coldFrozenRMSEM": 0.09349703027319849,
+          "trainedFrozenRMSEM": 0.0019828057737272965,
+          "uniform": {
+            "correctedRMSEM": 0.0007991043564855666,
+            "frozenRMSEOnCorrectionHorizonM": 0.0022030646828893035,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.017237656559351,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0006166742663036541,
+            "frozenRMSEOnCorrectionHorizonM": 0.002151014952961605,
+            "correctionTimeS": 1.3603643090151578,
+            "impactTimeS": 1.017237656559351,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8003,
+          "coldFrozenRMSEM": 0.09237158403961064,
+          "trainedFrozenRMSEM": 0.000517338005321641,
+          "uniform": {
+            "correctedRMSEM": 0.0014405749443991232,
+            "frozenRMSEOnCorrectionHorizonM": 0.000575846000013241,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0169784704649072,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0007056184083962912,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005630234959623185,
+            "correctionTimeS": 1.3599228245576327,
+            "impactTimeS": 1.0169784704649072,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8004,
+          "coldFrozenRMSEM": 0.08962529630131874,
+          "trainedFrozenRMSEM": 0.000610687370913816,
+          "uniform": {
+            "correctedRMSEM": 0.0007727308648198984,
+            "frozenRMSEOnCorrectionHorizonM": 0.0006754494277682899,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0280953070875343,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0008202161788475043,
+            "frozenRMSEOnCorrectionHorizonM": 0.0006587446110816987,
+            "correctionTimeS": 1.364450963796905,
+            "impactTimeS": 1.0280953070875343,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8005,
+          "coldFrozenRMSEM": 0.09218439130355806,
+          "trainedFrozenRMSEM": 0.0006144769759299208,
+          "uniform": {
+            "correctedRMSEM": 0.0005071184725334019,
+            "frozenRMSEOnCorrectionHorizonM": 0.0006663334733395496,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0143797693678005,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00032608330826354144,
+            "frozenRMSEOnCorrectionHorizonM": 0.0006530539461397273,
+            "correctionTimeS": 1.3586670326519399,
+            "impactTimeS": 1.0143797693678005,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8006,
+          "coldFrozenRMSEM": 0.09123769519565862,
+          "trainedFrozenRMSEM": 0.00013286982728427123,
+          "uniform": {
+            "correctedRMSEM": 0.0007056983373745444,
+            "frozenRMSEOnCorrectionHorizonM": 0.00015664836247815262,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0206197434099933,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00024460921853214666,
+            "frozenRMSEOnCorrectionHorizonM": 0.0001500727198920862,
+            "correctionTimeS": 1.3613528855126216,
+            "impactTimeS": 1.0206197434099933,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8007,
+          "coldFrozenRMSEM": 0.09160574495266086,
+          "trainedFrozenRMSEM": 0.00047029851528626425,
+          "uniform": {
+            "correctedRMSEM": 0.0009467437678036815,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005264968273592867,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0199302244669506,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0007063938950963416,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005135279465699674,
+            "correctionTimeS": 1.3611125958028893,
+            "impactTimeS": 1.0199302244669506,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8008,
+          "coldFrozenRMSEM": 0.0900078006075744,
+          "trainedFrozenRMSEM": 0.0014457281843670488,
+          "uniform": {
+            "correctedRMSEM": 0.0009085724581044541,
+            "frozenRMSEOnCorrectionHorizonM": 0.0016289977208463228,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0225965200703493,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005546728476498899,
+            "frozenRMSEOnCorrectionHorizonM": 0.0015828641873994467,
+            "correctionTimeS": 1.3619457665689403,
+            "impactTimeS": 1.0225965200703493,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8009,
+          "coldFrozenRMSEM": 0.08992463613127762,
+          "trainedFrozenRMSEM": 0.0011039266320741342,
+          "uniform": {
+            "correctedRMSEM": 0.0007636591508215024,
+            "frozenRMSEOnCorrectionHorizonM": 0.0012462931511556417,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.023860056860575,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0015409778332601419,
+            "frozenRMSEOnCorrectionHorizonM": 0.0012100792920416764,
+            "correctionTimeS": 1.362531770171469,
+            "impactTimeS": 1.023860056860575,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8010,
+          "coldFrozenRMSEM": 0.09170152352852863,
+          "trainedFrozenRMSEM": 0.00042195278867134087,
+          "uniform": {
+            "correctedRMSEM": 0.0005364085188945999,
+            "frozenRMSEOnCorrectionHorizonM": 0.00047333518383256573,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.019447403092308,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005937651288367644,
+            "frozenRMSEOnCorrectionHorizonM": 0.00046159835316639063,
+            "correctionTimeS": 1.360900522999613,
+            "impactTimeS": 1.019447403092308,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8011,
+          "coldFrozenRMSEM": 0.09341718743508254,
+          "trainedFrozenRMSEM": 0.0004945272407494987,
+          "uniform": {
+            "correctedRMSEM": 0.0013812810922570944,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005455741129198579,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0061983728171595,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0003481671925049288,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005344396632464714,
+            "correctionTimeS": 1.3555822756921527,
+            "impactTimeS": 1.0061983728171595,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8012,
+          "coldFrozenRMSEM": 0.08959709143028668,
+          "trainedFrozenRMSEM": 0.0008510918614978043,
+          "uniform": {
+            "correctedRMSEM": 0.00126881472065236,
+            "frozenRMSEOnCorrectionHorizonM": 0.000942630114803928,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0281472076914888,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.001426961932119283,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009196577036629653,
+            "correctionTimeS": 1.3644662581560911,
+            "impactTimeS": 1.0281472076914888,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8013,
+          "coldFrozenRMSEM": 0.08880451164166106,
+          "trainedFrozenRMSEM": 0.0003349747184967402,
+          "uniform": {
+            "correctedRMSEM": 0.0023108724552213036,
+            "frozenRMSEOnCorrectionHorizonM": 0.0003859921149880106,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0367169134620815,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.0011059216228324858,
+            "frozenRMSEOnCorrectionHorizonM": 0.00037447255831633266,
+            "correctionTimeS": 1.3683989223315236,
+            "impactTimeS": 1.0367169134620815,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8014,
+          "coldFrozenRMSEM": 0.09143328921875599,
+          "trainedFrozenRMSEM": 0.002002567179929744,
+          "uniform": {
+            "correctedRMSEM": 0.002782329531499237,
+            "frozenRMSEOnCorrectionHorizonM": 0.0021984030722350845,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0131294665154018,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0010159462524489994,
+            "frozenRMSEOnCorrectionHorizonM": 0.0021499218042889384,
+            "correctionTimeS": 1.3578720148002572,
+            "impactTimeS": 1.0131294665154018,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8015,
+          "coldFrozenRMSEM": 0.09225569074425272,
+          "trainedFrozenRMSEM": 0.0008115077842223256,
+          "uniform": {
+            "correctedRMSEM": 0.000533563741262651,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008852661973467675,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.015210541810914,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005841567161516713,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008674652529625852,
+            "correctionTimeS": 1.359076863602597,
+            "impactTimeS": 1.015210541810914,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8016,
+          "coldFrozenRMSEM": 0.0927536045632394,
+          "trainedFrozenRMSEM": 0.0004731654652942924,
+          "uniform": {
+            "correctedRMSEM": 0.0003792204958078872,
+            "frozenRMSEOnCorrectionHorizonM": 0.000529823485950019,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0108994846294026,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00023325407038232926,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005147265654430395,
+            "correctionTimeS": 1.3572654757651341,
+            "impactTimeS": 1.0108994846294026,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8017,
+          "coldFrozenRMSEM": 0.09335236886518516,
+          "trainedFrozenRMSEM": 0.0016793241522543303,
+          "uniform": {
+            "correctedRMSEM": 0.0010012068090800611,
+            "frozenRMSEOnCorrectionHorizonM": 0.0018648612561241466,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0166187547598136,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.000838340986450886,
+            "frozenRMSEOnCorrectionHorizonM": 0.0018211454557025598,
+            "correctionTimeS": 1.3600262650520418,
+            "impactTimeS": 1.0166187547598136,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8018,
+          "coldFrozenRMSEM": 0.09028294660309265,
+          "trainedFrozenRMSEM": 0.0013976473212996509,
+          "uniform": {
+            "correctedRMSEM": 0.0009043635614637766,
+            "frozenRMSEOnCorrectionHorizonM": 0.0015734469389385721,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0214670007364532,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0004264861061108606,
+            "frozenRMSEOnCorrectionHorizonM": 0.0015291511229136902,
+            "correctionTimeS": 1.3614682205074486,
+            "impactTimeS": 1.0214670007364532,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8019,
+          "coldFrozenRMSEM": 0.0895214351421635,
+          "trainedFrozenRMSEM": 0.0017646957366230724,
+          "uniform": {
+            "correctedRMSEM": 0.0016652622492976373,
+            "frozenRMSEOnCorrectionHorizonM": 0.0019170428792947302,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0306662422899333,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0025126630480748658,
+            "frozenRMSEOnCorrectionHorizonM": 0.0018857455623540514,
+            "correctionTimeS": 1.3654900968598265,
+            "impactTimeS": 1.0306662422899333,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8020,
+          "coldFrozenRMSEM": 0.0922809616272973,
+          "trainedFrozenRMSEM": 0.0010488527337045468,
+          "uniform": {
+            "correctedRMSEM": 0.002453397100271056,
+            "frozenRMSEOnCorrectionHorizonM": 0.001191838721112066,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0078883761671225,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.002460082313693882,
+            "frozenRMSEOnCorrectionHorizonM": 0.0011569660648684448,
+            "correctionTimeS": 1.35602273761669,
+            "impactTimeS": 1.0078883761671225,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8021,
+          "coldFrozenRMSEM": 0.092761934387082,
+          "trainedFrozenRMSEM": 0.0008484635744021345,
+          "uniform": {
+            "correctedRMSEM": 0.001556216505157002,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009218519829819185,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.010885621343638,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005044150924723374,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009034552575390547,
+            "correctionTimeS": 1.3572352867928676,
+            "impactTimeS": 1.010885621343638,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8022,
+          "coldFrozenRMSEM": 0.08972911954690553,
+          "trainedFrozenRMSEM": 0.0008124013039142495,
+          "uniform": {
+            "correctedRMSEM": 0.002289338141096139,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008972536839146313,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.025815985019467,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0025831496597333655,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008752217676787415,
+            "correctionTimeS": 1.3633617539524086,
+            "impactTimeS": 1.025815985019467,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8023,
+          "coldFrozenRMSEM": 0.09088747595160276,
+          "trainedFrozenRMSEM": 0.001790419585641041,
+          "uniform": {
+            "correctedRMSEM": 0.0017757511251851588,
+            "frozenRMSEOnCorrectionHorizonM": 0.001958847623865652,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0335046423147913,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.0028173198715544328,
+            "frozenRMSEOnCorrectionHorizonM": 0.0019255677372031176,
+            "correctionTimeS": 1.367373947884032,
+            "impactTimeS": 1.0335046423147913,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8024,
+          "coldFrozenRMSEM": 0.09179808442076612,
+          "trainedFrozenRMSEM": 0.0012049963053948809,
+          "uniform": {
+            "correctedRMSEM": 0.0011707258997789801,
+            "frozenRMSEOnCorrectionHorizonM": 0.001319314147685736,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0133091702777075,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0003266623324875794,
+            "frozenRMSEOnCorrectionHorizonM": 0.0012903418865095136,
+            "correctionTimeS": 1.3580679522685142,
+            "impactTimeS": 1.0133091702777075,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8025,
+          "coldFrozenRMSEM": 0.09184979162063114,
+          "trainedFrozenRMSEM": 0.0009670014524470657,
+          "uniform": {
+            "correctedRMSEM": 0.0008746955891533047,
+            "frozenRMSEOnCorrectionHorizonM": 0.0010768545626427867,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0099655304636985,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00041962661845118754,
+            "frozenRMSEOnCorrectionHorizonM": 0.0010497820207084683,
+            "correctionTimeS": 1.3567695908674235,
+            "impactTimeS": 1.0099655304636985,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8026,
+          "coldFrozenRMSEM": 0.09212549555987747,
+          "trainedFrozenRMSEM": 0.0013107723262209068,
+          "uniform": {
+            "correctedRMSEM": 0.0005636421095556721,
+            "frozenRMSEOnCorrectionHorizonM": 0.0014494954672228477,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0103805786862619,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00016667829245061507,
+            "frozenRMSEOnCorrectionHorizonM": 0.0014143681514959309,
+            "correctionTimeS": 1.3568500543842725,
+            "impactTimeS": 1.0103805786862619,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8027,
+          "coldFrozenRMSEM": 0.09008222425728567,
+          "trainedFrozenRMSEM": 0.0008827336034045126,
+          "uniform": {
+            "correctedRMSEM": 0.0004973871289172483,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009617139583423216,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0320194126056508,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.0011063940854788236,
+            "frozenRMSEOnCorrectionHorizonM": 0.0009461729831270435,
+            "correctionTimeS": 1.3663792831634696,
+            "impactTimeS": 1.0320194126056508,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8028,
+          "coldFrozenRMSEM": 0.09308601506359515,
+          "trainedFrozenRMSEM": 0.00013198983994395553,
+          "uniform": {
+            "correctedRMSEM": 0.0012621408095176744,
+            "frozenRMSEOnCorrectionHorizonM": 0.00013617353898511122,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0103530921806152,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005389345532074533,
+            "frozenRMSEOnCorrectionHorizonM": 0.00013370625204772206,
+            "correctionTimeS": 1.3571103628482746,
+            "impactTimeS": 1.0103530921806152,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8029,
+          "coldFrozenRMSEM": 0.09241340816584641,
+          "trainedFrozenRMSEM": 0.0008094001175881318,
+          "uniform": {
+            "correctedRMSEM": 0.00038911940611144607,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008853878510859918,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.011195979884164,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00030531411900421344,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008655534964039793,
+            "correctionTimeS": 1.3572692732964977,
+            "impactTimeS": 1.011195979884164,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8030,
+          "coldFrozenRMSEM": 0.09101573242579328,
+          "trainedFrozenRMSEM": 0.0008006178569400945,
+          "uniform": {
+            "correctedRMSEM": 0.00088672474065711,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008924149706451202,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.021924757619249,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0007451482802417975,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008700248694448788,
+            "correctionTimeS": 1.3619023026682693,
+            "impactTimeS": 1.021924757619249,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8031,
+          "coldFrozenRMSEM": 0.09125253819615312,
+          "trainedFrozenRMSEM": 0.00039856396106466546,
+          "uniform": {
+            "correctedRMSEM": 0.0005691266969441018,
+            "frozenRMSEOnCorrectionHorizonM": 0.0004539323304894659,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0204989061212297,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005870349534956178,
+            "frozenRMSEOnCorrectionHorizonM": 0.00043999322224128046,
+            "correctionTimeS": 1.3612806502564014,
+            "impactTimeS": 1.0204989061212297,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8032,
+          "coldFrozenRMSEM": 0.08982136121703561,
+          "trainedFrozenRMSEM": 0.0010649710450893923,
+          "uniform": {
+            "correctedRMSEM": 0.0008030279830040669,
+            "frozenRMSEOnCorrectionHorizonM": 0.001198146157214119,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0242760427517494,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0020290758557024416,
+            "frozenRMSEOnCorrectionHorizonM": 0.001164196891338917,
+            "correctionTimeS": 1.3626981819175823,
+            "impactTimeS": 1.0242760427517494,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8033,
+          "coldFrozenRMSEM": 0.09022419633566002,
+          "trainedFrozenRMSEM": 0.0005586163683811959,
+          "uniform": {
+            "correctedRMSEM": 0.0004144355219218068,
+            "frozenRMSEOnCorrectionHorizonM": 0.0006137546904398805,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0249321559586761,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005820464346708231,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005994528809083239,
+            "correctionTimeS": 1.3630924330465317,
+            "impactTimeS": 1.0249321559586761,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8034,
+          "coldFrozenRMSEM": 0.0911726329417129,
+          "trainedFrozenRMSEM": 0.0007831818085001046,
+          "uniform": {
+            "correctedRMSEM": 0.0005315225066009782,
+            "frozenRMSEOnCorrectionHorizonM": 0.000885339194084074,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.020458499149608,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.000586896459769604,
+            "frozenRMSEOnCorrectionHorizonM": 0.0008598545203206485,
+            "correctionTimeS": 1.3612344749687284,
+            "impactTimeS": 1.020458499149608,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8035,
+          "coldFrozenRMSEM": 0.08990305134695113,
+          "trainedFrozenRMSEM": 0.0003694151615538881,
+          "uniform": {
+            "correctedRMSEM": 0.000521097037419855,
+            "frozenRMSEOnCorrectionHorizonM": 0.00039898493145443443,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.032314288247936,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.0009370025068464433,
+            "frozenRMSEOnCorrectionHorizonM": 0.0003934361882806835,
+            "correctionTimeS": 1.3664569835265243,
+            "impactTimeS": 1.032314288247936,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8036,
+          "coldFrozenRMSEM": 0.09000784314217386,
+          "trainedFrozenRMSEM": 0.0005260381128881478,
+          "uniform": {
+            "correctedRMSEM": 0.00041555950388681413,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005823242849565469,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0255232885547527,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0005275158581647483,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005672272244980502,
+            "correctionTimeS": 1.3633143034614037,
+            "impactTimeS": 1.0255232885547527,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8037,
+          "coldFrozenRMSEM": 0.09226724836795559,
+          "trainedFrozenRMSEM": 0.0005409407159573109,
+          "uniform": {
+            "correctedRMSEM": 0.0006520580577043602,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005964357351609948,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0134997307196034,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0001715837788075403,
+            "frozenRMSEOnCorrectionHorizonM": 0.0005817777964629817,
+            "correctionTimeS": 1.3582856657479072,
+            "impactTimeS": 1.0134997307196034,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8038,
+          "coldFrozenRMSEM": 0.09252904659591504,
+          "trainedFrozenRMSEM": 0.0007025467935590347,
+          "uniform": {
+            "correctedRMSEM": 0.0010107341030595486,
+            "frozenRMSEOnCorrectionHorizonM": 0.0007788894969838689,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0120005206729181,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0006884983840080887,
+            "frozenRMSEOnCorrectionHorizonM": 0.0007594590728003952,
+            "correctionTimeS": 1.3576931050682848,
+            "impactTimeS": 1.0120005206729181,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8039,
+          "coldFrozenRMSEM": 0.09220346725842034,
+          "trainedFrozenRMSEM": 0.0012595139946224797,
+          "uniform": {
+            "correctedRMSEM": 0.0025515794460731094,
+            "frozenRMSEOnCorrectionHorizonM": 0.0014279340552021194,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.007555220950213,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0026752153830948834,
+            "frozenRMSEOnCorrectionHorizonM": 0.001387155146451361,
+            "correctionTimeS": 1.3558626054971414,
+            "impactTimeS": 1.007555220950213,
+            "requests": 28,
+            "received": 21
+          }
+        }
+      ]
+    },
+    {
+      "name": "default stochastic bounce and camera",
+      "config": {
+        "seed": 42,
+        "restitution": 0.76,
+        "bounceRandomness": 0.08,
+        "roughnessDeg": 4,
+        "drag": 0.14,
+        "cameraNoise": 8,
+        "dropRate": 0.04,
+        "blackoutMs": 170,
+        "exposureMs": 14,
+        "frameBudget": 28,
+        "sampling": "uniform",
+        "startX": 0.26,
+        "startY": 0.59,
+        "speed": 1.35,
+        "headingDeg": 0,
+        "launchJitter": 0,
+        "obstacles": [],
+        "quadraticDrag": 0,
+        "fieldStrength": 0,
+        "fieldX": 0.95,
+        "fieldY": 0.6,
+        "fieldRadius": 0.3,
+        "fieldMode": "attract",
+        "arenaWalls": false
+      },
+      "initialStudent": {
+        "restitution": 0.58,
+        "drag": 0.06,
+        "tangentRetention": 0.96,
+        "episodes": 0,
+        "bounceStd": 0.13,
+        "roughnessStd": 0.07,
+        "restitutionM2": 0,
+        "restitutionMean": 0,
+        "dragWeight": 0,
+        "lastFit": null
+      },
+      "trainedStudent": {
+        "restitution": 0.7271990774194073,
+        "drag": 0.12775000000000003,
+        "tangentRetention": 0.96,
+        "episodes": 20,
+        "bounceStd": 0.07509519295043506,
+        "roughnessStd": 0.05339095715033627,
+        "restitutionM2": 0.10714647208099833,
+        "restitutionMean": 0.7271990774194073,
+        "dragWeight": 0,
+        "lastFit": {
+          "restitution": 0.7316912051244684,
+          "drag": 0.13,
+          "residual": 0.0016701830330807415,
+          "observations": 24
+        }
+      },
+      "training": {
+        "episodes": 20,
+        "firstSeed": 1000,
+        "lastSeed": 1019
+      },
+      "heldOut": {
+        "episodes": 40,
+        "firstSeed": 8000,
+        "lastSeed": 8039
+      },
+      "pairedForecastCount": 40,
+      "coldMeanFrozenRMSEM": 0.16325749162015324,
+      "trainedMeanFrozenRMSEM": 0.13442279892502046,
+      "sampling": {
+        "pairedCorrectionCount": 40,
+        "equalRequestedBudget": 28,
+        "uniformMeanCorrectionTimeS": 1.4680000000000009,
+        "burstMeanCorrectionTimeS": 1.3010249876812756,
+        "uniformMeanDetectionDelayS": 0.4464615913745478,
+        "burstMeanDetectionDelayS": 0.2794865790558232,
+        "uniformMeanCorrectedRMSEM": 0.006369699738142487,
+        "burstMeanCorrectedRMSEM": 0.00709382230432139,
+        "uniformMeanReceivedFrames": 24.9,
+        "burstMeanReceivedFrames": 22.175,
+        "note": "Equal requested frames, not equal delivered frames. Corrected forecasts begin at different times; their RMSE values are not a common-horizon head-to-head accuracy test."
+      },
+      "records": [
+        {
+          "seed": 8000,
+          "coldFrozenRMSEM": 0.23811606037268096,
+          "trainedFrozenRMSEM": 0.21652517596236784,
+          "uniform": {
+            "correctedRMSEM": 0.004862534916589141,
+            "frozenRMSEOnCorrectionHorizonM": 0.25244336284235624,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.00686975305905632,
+            "frozenRMSEOnCorrectionHorizonM": 0.2377613464842401,
+            "correctionTimeS": 1.2869996414522609,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8001,
+          "coldFrozenRMSEM": 0.12212958421903433,
+          "trainedFrozenRMSEM": 0.05702347782145734,
+          "uniform": {
+            "correctedRMSEM": 0.006605794806558751,
+            "frozenRMSEOnCorrectionHorizonM": 0.06769249519143643,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.009385904054730297,
+            "frozenRMSEOnCorrectionHorizonM": 0.06215404903438757,
+            "correctionTimeS": 1.2874539752816343,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8002,
+          "coldFrozenRMSEM": 0.06160568273990043,
+          "trainedFrozenRMSEM": 0.08142021904332505,
+          "uniform": {
+            "correctedRMSEM": 0.005457377453120981,
+            "frozenRMSEOnCorrectionHorizonM": 0.09924053600438568,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.008421822819095039,
+            "frozenRMSEOnCorrectionHorizonM": 0.08955122642919264,
+            "correctionTimeS": 1.287438919165943,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8003,
+          "coldFrozenRMSEM": 0.1985976048628566,
+          "trainedFrozenRMSEM": 0.1311213233745615,
+          "uniform": {
+            "correctedRMSEM": 0.010454903787014882,
+            "frozenRMSEOnCorrectionHorizonM": 0.15207508149976381,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.008920767376312665,
+            "frozenRMSEOnCorrectionHorizonM": 0.14362634221542295,
+            "correctionTimeS": 1.2873336093728756,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8004,
+          "coldFrozenRMSEM": 0.08465525564452142,
+          "trainedFrozenRMSEM": 0.1404876904572831,
+          "uniform": {
+            "correctedRMSEM": 0.004821260077653516,
+            "frozenRMSEOnCorrectionHorizonM": 0.16456164215258268,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.004445944350433889,
+            "frozenRMSEOnCorrectionHorizonM": 0.15946427273672953,
+            "correctionTimeS": 1.367440358296851,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8005,
+          "coldFrozenRMSEM": 0.20586929045343771,
+          "trainedFrozenRMSEM": 0.15395825900682775,
+          "uniform": {
+            "correctedRMSEM": 0.006149899184135206,
+            "frozenRMSEOnCorrectionHorizonM": 0.17893065771322048,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          },
+          "burst": {
+            "correctedRMSEM": 0.008718725890235476,
+            "frozenRMSEOnCorrectionHorizonM": 0.16880704461774673,
+            "correctionTimeS": 1.2866203391571949,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8006,
+          "coldFrozenRMSEM": 0.07619427043252017,
+          "trainedFrozenRMSEM": 0.14196981350700794,
+          "uniform": {
+            "correctedRMSEM": 0.0034418730002852035,
+            "frozenRMSEOnCorrectionHorizonM": 0.16629237760465473,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.003898272191961508,
+            "frozenRMSEOnCorrectionHorizonM": 0.1562112743829432,
+            "correctionTimeS": 1.285811470746845,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8007,
+          "coldFrozenRMSEM": 0.26316738290413205,
+          "trainedFrozenRMSEM": 0.23853280480542347,
+          "uniform": {
+            "correctedRMSEM": 0.007658599130508085,
+            "frozenRMSEOnCorrectionHorizonM": 0.27792561246647246,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.008155751423350637,
+            "frozenRMSEOnCorrectionHorizonM": 0.2618521906678645,
+            "correctionTimeS": 1.2870082053874323,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8008,
+          "coldFrozenRMSEM": 0.17333541842816402,
+          "trainedFrozenRMSEM": 0.10446562856501285,
+          "uniform": {
+            "correctedRMSEM": 0.00507906994693436,
+            "frozenRMSEOnCorrectionHorizonM": 0.12528876549934956,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.006535008879068803,
+            "frozenRMSEOnCorrectionHorizonM": 0.11763180177904889,
+            "correctionTimeS": 1.3670094610845345,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8009,
+          "coldFrozenRMSEM": 0.149551204009748,
+          "trainedFrozenRMSEM": 0.1410929405266997,
+          "uniform": {
+            "correctedRMSEM": 0.007054552980477134,
+            "frozenRMSEOnCorrectionHorizonM": 0.1646108942464834,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.0060200622172467445,
+            "frozenRMSEOnCorrectionHorizonM": 0.15969997173142064,
+            "correctionTimeS": 1.3674184441062138,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8010,
+          "coldFrozenRMSEM": 0.2105857818964596,
+          "trainedFrozenRMSEM": 0.19171406211724717,
+          "uniform": {
+            "correctedRMSEM": 0.005785622475854415,
+            "frozenRMSEOnCorrectionHorizonM": 0.22344171976745952,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.0060410674435303425,
+            "frozenRMSEOnCorrectionHorizonM": 0.2104788210861631,
+            "correctionTimeS": 1.2871171601387772,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8011,
+          "coldFrozenRMSEM": 0.23846764428231085,
+          "trainedFrozenRMSEM": 0.16252979913135226,
+          "uniform": {
+            "correctedRMSEM": 0.005208952186680706,
+            "frozenRMSEOnCorrectionHorizonM": 0.18926009703996294,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          },
+          "burst": {
+            "correctedRMSEM": 0.005783294165877446,
+            "frozenRMSEOnCorrectionHorizonM": 0.1770836296023967,
+            "correctionTimeS": 1.2814772562543,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8012,
+          "coldFrozenRMSEM": 0.14374605772090643,
+          "trainedFrozenRMSEM": 0.08585056572068539,
+          "uniform": {
+            "correctedRMSEM": 0.004909052295752327,
+            "frozenRMSEOnCorrectionHorizonM": 0.09943585355680785,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.0054796219136766825,
+            "frozenRMSEOnCorrectionHorizonM": 0.09396092394242445,
+            "correctionTimeS": 1.2870467590647725,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8013,
+          "coldFrozenRMSEM": 0.08433565927795347,
+          "trainedFrozenRMSEM": 0.07790990324119125,
+          "uniform": {
+            "correctedRMSEM": 0.005644744466921258,
+            "frozenRMSEOnCorrectionHorizonM": 0.09105379374706511,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.005294643706570215,
+            "frozenRMSEOnCorrectionHorizonM": 0.08827438981440122,
+            "correctionTimeS": 1.3672091863391616,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8014,
+          "coldFrozenRMSEM": 0.05275484005153391,
+          "trainedFrozenRMSEM": 0.067597133720879,
+          "uniform": {
+            "correctedRMSEM": 0.005466382694879894,
+            "frozenRMSEOnCorrectionHorizonM": 0.0792586862341563,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.005459655289049648,
+            "frozenRMSEOnCorrectionHorizonM": 0.0743638497832013,
+            "correctionTimeS": 1.2877979276409037,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8015,
+          "coldFrozenRMSEM": 0.1344403604296982,
+          "trainedFrozenRMSEM": 0.08348150132899548,
+          "uniform": {
+            "correctedRMSEM": 0.006329955095938975,
+            "frozenRMSEOnCorrectionHorizonM": 0.09717467350471327,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.002916968870380164,
+            "frozenRMSEOnCorrectionHorizonM": 0.0909372933479348,
+            "correctionTimeS": 1.28168983364208,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8016,
+          "coldFrozenRMSEM": 0.2411008953858959,
+          "trainedFrozenRMSEM": 0.1880637339264908,
+          "uniform": {
+            "correctedRMSEM": 0.007760350820593025,
+            "frozenRMSEOnCorrectionHorizonM": 0.22699968118762254,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.008308114039850236,
+            "frozenRMSEOnCorrectionHorizonM": 0.20632582808196112,
+            "correctionTimeS": 1.2864861625164254,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8017,
+          "coldFrozenRMSEM": 0.17202217772347558,
+          "trainedFrozenRMSEM": 0.11530474415849329,
+          "uniform": {
+            "correctedRMSEM": 0.007214970575716307,
+            "frozenRMSEOnCorrectionHorizonM": 0.13376157435006275,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.008115872077308357,
+            "frozenRMSEOnCorrectionHorizonM": 0.12630535193025866,
+            "correctionTimeS": 1.2874732496348158,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8018,
+          "coldFrozenRMSEM": 0.2110290831520926,
+          "trainedFrozenRMSEM": 0.17161492418095228,
+          "uniform": {
+            "correctedRMSEM": 0.007657985420632268,
+            "frozenRMSEOnCorrectionHorizonM": 0.19984156151131396,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.00781442123796691,
+            "frozenRMSEOnCorrectionHorizonM": 0.18833806621907642,
+            "correctionTimeS": 1.2869367293980691,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8019,
+          "coldFrozenRMSEM": 0.2739194076018476,
+          "trainedFrozenRMSEM": 0.24145190281989562,
+          "uniform": {
+            "correctedRMSEM": 0.00514702040027535,
+            "frozenRMSEOnCorrectionHorizonM": 0.2813837863240179,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.009348891619672148,
+            "frozenRMSEOnCorrectionHorizonM": 0.265085460118916,
+            "correctionTimeS": 1.2868216532352816,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8020,
+          "coldFrozenRMSEM": 0.21070758499799022,
+          "trainedFrozenRMSEM": 0.1442224399220843,
+          "uniform": {
+            "correctedRMSEM": 0.008328405219413693,
+            "frozenRMSEOnCorrectionHorizonM": 0.16706891051670267,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.005794539502523866,
+            "frozenRMSEOnCorrectionHorizonM": 0.1578802985713301,
+            "correctionTimeS": 1.2894106107548287,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8021,
+          "coldFrozenRMSEM": 0.22500170028713773,
+          "trainedFrozenRMSEM": 0.15836163803962874,
+          "uniform": {
+            "correctedRMSEM": 0.007267341495970715,
+            "frozenRMSEOnCorrectionHorizonM": 0.18390118398744368,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.009780501344420427,
+            "frozenRMSEOnCorrectionHorizonM": 0.17357451991090747,
+            "correctionTimeS": 1.287086727878371,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8022,
+          "coldFrozenRMSEM": 0.1961111311134584,
+          "trainedFrozenRMSEM": 0.18775093002060833,
+          "uniform": {
+            "correctedRMSEM": 0.006405760997467865,
+            "frozenRMSEOnCorrectionHorizonM": 0.21909762881798542,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.007395959244527593,
+            "frozenRMSEOnCorrectionHorizonM": 0.21255628968194715,
+            "correctionTimeS": 1.3676120527900526,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8023,
+          "coldFrozenRMSEM": 0.17292205274413877,
+          "trainedFrozenRMSEM": 0.11511285965377277,
+          "uniform": {
+            "correctedRMSEM": 0.005463293162550472,
+            "frozenRMSEOnCorrectionHorizonM": 0.13359710576721534,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.005665725459701018,
+            "frozenRMSEOnCorrectionHorizonM": 0.12612338828436992,
+            "correctionTimeS": 1.2871414391037228,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8024,
+          "coldFrozenRMSEM": 0.1270602741456321,
+          "trainedFrozenRMSEM": 0.07688640127478359,
+          "uniform": {
+            "correctedRMSEM": 0.006345653891626123,
+            "frozenRMSEOnCorrectionHorizonM": 0.08915724244597471,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.00854702638678629,
+            "frozenRMSEOnCorrectionHorizonM": 0.08418699998468858,
+            "correctionTimeS": 1.286919436790342,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8025,
+          "coldFrozenRMSEM": 0.22603646809895508,
+          "trainedFrozenRMSEM": 0.1620157949546383,
+          "uniform": {
+            "correctedRMSEM": 0.008399521408533384,
+            "frozenRMSEOnCorrectionHorizonM": 0.18820683855877227,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.005133203079414512,
+            "frozenRMSEOnCorrectionHorizonM": 0.18283048209588146,
+            "correctionTimeS": 1.367399723431922,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8026,
+          "coldFrozenRMSEM": 0.10400195447046721,
+          "trainedFrozenRMSEM": 0.174782676413868,
+          "uniform": {
+            "correctedRMSEM": 0.0040333727389469136,
+            "frozenRMSEOnCorrectionHorizonM": 0.2129266173390549,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.005545133557640338,
+            "frozenRMSEOnCorrectionHorizonM": 0.19230992661173307,
+            "correctionTimeS": 1.2873969336206625,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8027,
+          "coldFrozenRMSEM": 0.024495516543780165,
+          "trainedFrozenRMSEM": 0.05152952153628949,
+          "uniform": {
+            "correctedRMSEM": 0.005419768185892335,
+            "frozenRMSEOnCorrectionHorizonM": 0.060664673618977066,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.007403563040453892,
+            "frozenRMSEOnCorrectionHorizonM": 0.056773740511206885,
+            "correctionTimeS": 1.2868812097256026,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8028,
+          "coldFrozenRMSEM": 0.2106524546666963,
+          "trainedFrozenRMSEM": 0.17533954678124283,
+          "uniform": {
+            "correctedRMSEM": 0.006352095956010487,
+            "frozenRMSEOnCorrectionHorizonM": 0.2041885749102554,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.009299429508557479,
+            "frozenRMSEOnCorrectionHorizonM": 0.19242977104168077,
+            "correctionTimeS": 1.2868380761045004,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8029,
+          "coldFrozenRMSEM": 0.14481851983289573,
+          "trainedFrozenRMSEM": 0.1631306561872176,
+          "uniform": {
+            "correctedRMSEM": 0.004927703352338521,
+            "frozenRMSEOnCorrectionHorizonM": 0.1981545464325207,
+            "correctionTimeS": 1.5457142857142856,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.005320054698599005,
+            "frozenRMSEOnCorrectionHorizonM": 0.17931983892242997,
+            "correctionTimeS": 1.287358184224338,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8030,
+          "coldFrozenRMSEM": 0.24552437340348887,
+          "trainedFrozenRMSEM": 0.18122369875282673,
+          "uniform": {
+            "correctedRMSEM": 0.009980919569820987,
+            "frozenRMSEOnCorrectionHorizonM": 0.21053316335866146,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.008243511056862949,
+            "frozenRMSEOnCorrectionHorizonM": 0.1986675433492141,
+            "correctionTimeS": 1.2880812228245837,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8031,
+          "coldFrozenRMSEM": 0.12537285004217255,
+          "trainedFrozenRMSEM": 0.05757078248847286,
+          "uniform": {
+            "correctedRMSEM": 0.006698369519044367,
+            "frozenRMSEOnCorrectionHorizonM": 0.06607337599565104,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.008161698905720235,
+            "frozenRMSEOnCorrectionHorizonM": 0.06271419221450981,
+            "correctionTimeS": 1.2874694423345654,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8032,
+          "coldFrozenRMSEM": 0.1744094218204748,
+          "trainedFrozenRMSEM": 0.14488618481948076,
+          "uniform": {
+            "correctedRMSEM": 0.008850493236572627,
+            "frozenRMSEOnCorrectionHorizonM": 0.16857577843169272,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.011003806662393808,
+            "frozenRMSEOnCorrectionHorizonM": 0.15891482882698307,
+            "correctionTimeS": 1.290363024072644,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8033,
+          "coldFrozenRMSEM": 0.11087778567131482,
+          "trainedFrozenRMSEM": 0.10496196706477277,
+          "uniform": {
+            "correctedRMSEM": 0.0052068219197428395,
+            "frozenRMSEOnCorrectionHorizonM": 0.1225020456351222,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.005796371736185471,
+            "frozenRMSEOnCorrectionHorizonM": 0.11528436314473144,
+            "correctionTimeS": 1.2871761472490442,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8034,
+          "coldFrozenRMSEM": 0.10473644019030728,
+          "trainedFrozenRMSEM": 0.1217974905926172,
+          "uniform": {
+            "correctedRMSEM": 0.005273898132944912,
+            "frozenRMSEOnCorrectionHorizonM": 0.14242770235030278,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.0067010607875823,
+            "frozenRMSEOnCorrectionHorizonM": 0.13390606644469322,
+            "correctionTimeS": 1.286772056864955,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8035,
+          "coldFrozenRMSEM": 0.24807264772015195,
+          "trainedFrozenRMSEM": 0.18088972686088375,
+          "uniform": {
+            "correctedRMSEM": 0.006959070346740251,
+            "frozenRMSEOnCorrectionHorizonM": 0.21014654311545822,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.008889656782132892,
+            "frozenRMSEOnCorrectionHorizonM": 0.19830381721270884,
+            "correctionTimeS": 1.2877995175376233,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        },
+        {
+          "seed": 8036,
+          "coldFrozenRMSEM": 0.048666896320141796,
+          "trainedFrozenRMSEM": 0.03673645138196625,
+          "uniform": {
+            "correctedRMSEM": 0.005194638963060947,
+            "frozenRMSEOnCorrectionHorizonM": 0.043133802733255545,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.00884537157799904,
+            "frozenRMSEOnCorrectionHorizonM": 0.0403699120570499,
+            "correctionTimeS": 1.2875665337700524,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 21
+          }
+        },
+        {
+          "seed": 8037,
+          "coldFrozenRMSEM": 0.1024318515805714,
+          "trainedFrozenRMSEM": 0.043157212579357875,
+          "uniform": {
+            "correctedRMSEM": 0.007653942839734833,
+            "frozenRMSEOnCorrectionHorizonM": 0.049499942544443704,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 26
+          },
+          "burst": {
+            "correctedRMSEM": 0.006113408983727535,
+            "frozenRMSEOnCorrectionHorizonM": 0.04821824970321382,
+            "correctionTimeS": 1.367534051376897,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8038,
+          "coldFrozenRMSEM": 0.15506028882197642,
+          "trainedFrozenRMSEM": 0.13132770895202678,
+          "uniform": {
+            "correctedRMSEM": 0.005849779970735993,
+            "frozenRMSEOnCorrectionHorizonM": 0.15297407249104059,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 24
+          },
+          "burst": {
+            "correctedRMSEM": 0.005602036582615908,
+            "frozenRMSEOnCorrectionHorizonM": 0.14413338992808353,
+            "correctionTimeS": 1.2866596955482394,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 22
+          }
+        },
+        {
+          "seed": 8039,
+          "coldFrozenRMSEM": 0.23771579074520885,
+          "trainedFrozenRMSEM": 0.17311266530813182,
+          "uniform": {
+            "correctedRMSEM": 0.007466236902029375,
+            "frozenRMSEOnCorrectionHorizonM": 0.20118530576898053,
+            "correctionTimeS": 1.4542857142857142,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 25
+          },
+          "burst": {
+            "correctedRMSEM": 0.008576270649637483,
+            "frozenRMSEOnCorrectionHorizonM": 0.18981268542190977,
+            "correctionTimeS": 1.2869430793316923,
+            "impactTimeS": 1.0215384086254522,
+            "requests": 28,
+            "received": 23
+          }
+        }
+      ]
+    }
+  ],
+  "extensions": [
+    {
+      "name": "calibrated circular bumper",
+      "config": {
+        "seed": 42,
+        "restitution": 0.76,
+        "bounceRandomness": 0,
+        "roughnessDeg": 0,
+        "drag": 0.14,
+        "cameraNoise": 0,
+        "dropRate": 0,
+        "blackoutMs": 80,
+        "exposureMs": 0,
+        "frameBudget": 40,
+        "sampling": "uniform",
+        "startX": 0.26,
+        "startY": 0.59,
+        "speed": 1.35,
+        "headingDeg": 0,
+        "launchJitter": 0.015,
+        "obstacles": [
+          {
+            "id": "bumper",
+            "x": 1.2,
+            "y": 0.59,
+            "radius": 0.1
+          }
+        ],
+        "quadraticDrag": 0,
+        "fieldStrength": 0,
+        "fieldX": 0.95,
+        "fieldY": 0.6,
+        "fieldRadius": 0.3,
+        "fieldMode": "attract",
+        "arenaWalls": false
+      },
+      "episodes": 12,
+      "firstSeed": 10000,
+      "lastSeed": 10011,
+      "studentSource": "The 20-trial clean isolated-wall fit above; no training on these extension scenes.",
+      "pairedForecastCount": 12,
+      "coldMeanFrozenRMSEM": 0.15549538986271907,
+      "transferredMeanFrozenRMSEM": 0.0033682782955408697,
+      "meanCollisionCount": 1,
+      "preImpactForecastCount": 12,
+      "note": "Small synthetic fixtures, not a benchmark of general physical reasoning. Early contacts can occur before forecast freeze. The transferred predictor knows public geometry but no nonlinear force.",
+      "records": [
+        {
+          "seed": 10000,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15459231162870588,
+          "transferredFrozenRMSEM": 0.001855961337845871,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5776009246508342
+        },
+        {
+          "seed": 10001,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15620640788009665,
+          "transferredFrozenRMSEM": 0.006862791580555031,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5778354266903836
+        },
+        {
+          "seed": 10002,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15688075299765045,
+          "transferredFrozenRMSEM": 0.007274351269611163,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5795200619790433
+        },
+        {
+          "seed": 10003,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15715743513391744,
+          "transferredFrozenRMSEM": 0.0016336848878259504,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5776314852288666
+        },
+        {
+          "seed": 10004,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15457972762009792,
+          "transferredFrozenRMSEM": 0.0034743974813369895,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5780210964764045
+        },
+        {
+          "seed": 10005,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15461963847345553,
+          "transferredFrozenRMSEM": 0.0005940728246363814,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5776022576736468
+        },
+        {
+          "seed": 10006,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15705827663022465,
+          "transferredFrozenRMSEM": 0.003011741004222222,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5792569981336573
+        },
+        {
+          "seed": 10007,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15433916352317592,
+          "transferredFrozenRMSEM": 0.0019670741928619964,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5777061348828074
+        },
+        {
+          "seed": 10008,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15495422242344734,
+          "transferredFrozenRMSEM": 0.00054446158178514,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5776666022841773
+        },
+        {
+          "seed": 10009,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15366155216392688,
+          "transferredFrozenRMSEM": 0.0025280177772208424,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.579138430810929
+        },
+        {
+          "seed": 10010,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.1549672775258183,
+          "transferredFrozenRMSEM": 0.0013082990661275541,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5785052273998884
+        },
+        {
+          "seed": 10011,
+          "collisionCount": 1,
+          "surfaces": [
+            "bumper"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.15692791235211215,
+          "transferredFrozenRMSEM": 0.00936448654246129,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.578243185240047
+        }
+      ]
+    },
+    {
+      "name": "multiple contacts in a closed arena",
+      "config": {
+        "seed": 42,
+        "restitution": 0.76,
+        "bounceRandomness": 0,
+        "roughnessDeg": 0,
+        "drag": 0.14,
+        "cameraNoise": 0,
+        "dropRate": 0,
+        "blackoutMs": 80,
+        "exposureMs": 0,
+        "frameBudget": 40,
+        "sampling": "uniform",
+        "startX": 0.25,
+        "startY": 0.3,
+        "speed": 2.7,
+        "headingDeg": 25,
+        "launchJitter": 0.015,
+        "obstacles": [
+          {
+            "id": "A",
+            "x": 0.86,
+            "y": 0.62,
+            "radius": 0.14
+          },
+          {
+            "id": "B",
+            "x": 1.2,
+            "y": 0.22,
+            "radius": 0.1
+          }
+        ],
+        "quadraticDrag": 0,
+        "fieldStrength": 0,
+        "fieldX": 0.95,
+        "fieldY": 0.6,
+        "fieldRadius": 0.3,
+        "fieldMode": "attract",
+        "arenaWalls": true
+      },
+      "episodes": 12,
+      "firstSeed": 10000,
+      "lastSeed": 10011,
+      "studentSource": "The 20-trial clean isolated-wall fit above; no training on these extension scenes.",
+      "pairedForecastCount": 12,
+      "coldMeanFrozenRMSEM": 0.23999935399219394,
+      "transferredMeanFrozenRMSEM": 0.013663286662030606,
+      "meanCollisionCount": 5.083333333333333,
+      "preImpactForecastCount": 0,
+      "note": "Small synthetic fixtures, not a benchmark of general physical reasoning. Early contacts can occur before forecast freeze. The transferred predictor knows public geometry but no nonlinear force.",
+      "records": [
+        {
+          "seed": 10000,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.2141197109082099,
+          "transferredFrozenRMSEM": 0.0035634473090087764,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7569657766298228
+        },
+        {
+          "seed": 10001,
+          "collisionCount": 4,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.23185998884002273,
+          "transferredFrozenRMSEM": 0.0037454084365050886,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7483552150204142
+        },
+        {
+          "seed": 10002,
+          "collisionCount": 6,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.282311009028005,
+          "transferredFrozenRMSEM": 0.08041388362112974,
+          "transferredCorrectedRMSEM": 0.0016312322741717,
+          "correctionTimeS": 1.8781818181818182,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.8904919864675654
+        },
+        {
+          "seed": 10003,
+          "collisionCount": 4,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.22982443162420263,
+          "transferredFrozenRMSEM": 0.0006726671622520613,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7470493461040506
+        },
+        {
+          "seed": 10004,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.3771033831914634,
+          "transferredFrozenRMSEM": 0.0012988659813314577,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7652817069557719
+        },
+        {
+          "seed": 10005,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.20854303763570115,
+          "transferredFrozenRMSEM": 0.0012891866406946754,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.760540881663831
+        },
+        {
+          "seed": 10006,
+          "collisionCount": 6,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.2894287019355399,
+          "transferredFrozenRMSEM": 0.04735170139277412,
+          "transferredCorrectedRMSEM": 0.06336136916135361,
+          "correctionTimeS": 2.2272727272727275,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.8944274881776182
+        },
+        {
+          "seed": 10007,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.21625880219830312,
+          "transferredFrozenRMSEM": 0.001083037246245295,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7475968224213595
+        },
+        {
+          "seed": 10008,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.21881070337963046,
+          "transferredFrozenRMSEM": 0.002967105585720091,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.743324974105744
+        },
+        {
+          "seed": 10009,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.18914168566827708,
+          "transferredFrozenRMSEM": 0.005712998529468664,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7929986313627354
+        },
+        {
+          "seed": 10010,
+          "collisionCount": 6,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.2090683207582493,
+          "transferredFrozenRMSEM": 0.014875777320197792,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7974014121791746
+        },
+        {
+          "seed": 10011,
+          "collisionCount": 5,
+          "surfaces": [
+            "A",
+            "bottom-wall",
+            "left-wall",
+            "top-wall",
+            "right-wall"
+          ],
+          "preImpactForecast": false,
+          "coldFrozenRMSEM": 0.2135224727387228,
+          "transferredFrozenRMSEM": 0.0009853607190395501,
+          "transferredCorrectedRMSEM": null,
+          "correctionTimeS": null,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.7558293566085613
+        }
+      ]
+    },
+    {
+      "name": "unmodelled vortex and quadratic drag",
+      "config": {
+        "seed": 42,
+        "restitution": 0.76,
+        "bounceRandomness": 0,
+        "roughnessDeg": 0,
+        "drag": 0.14,
+        "cameraNoise": 0,
+        "dropRate": 0,
+        "blackoutMs": 80,
+        "exposureMs": 0,
+        "frameBudget": 40,
+        "sampling": "uniform",
+        "startX": 0.26,
+        "startY": 0.59,
+        "speed": 1.35,
+        "headingDeg": 0,
+        "launchJitter": 0.015,
+        "obstacles": [],
+        "quadraticDrag": 0.25,
+        "fieldStrength": 3,
+        "fieldX": 0.9,
+        "fieldY": 0.65,
+        "fieldRadius": 0.35,
+        "fieldMode": "vortex",
+        "arenaWalls": true
+      },
+      "episodes": 12,
+      "firstSeed": 10000,
+      "lastSeed": 10011,
+      "studentSource": "The 20-trial clean isolated-wall fit above; no training on these extension scenes.",
+      "pairedForecastCount": 12,
+      "coldMeanFrozenRMSEM": 0.38673767621452115,
+      "transferredMeanFrozenRMSEM": 0.43593993131428443,
+      "meanCollisionCount": 1,
+      "preImpactForecastCount": 12,
+      "note": "Small synthetic fixtures, not a benchmark of general physical reasoning. Early contacts can occur before forecast freeze. The transferred predictor knows public geometry but no nonlinear force.",
+      "records": [
+        {
+          "seed": 10000,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.37217760180907034,
+          "transferredFrozenRMSEM": 0.42073960928472076,
+          "transferredCorrectedRMSEM": 0.5115150980576232,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5833883733615325
+        },
+        {
+          "seed": 10001,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.40987975544755534,
+          "transferredFrozenRMSEM": 0.4620024348708954,
+          "transferredCorrectedRMSEM": 0.5669456167305696,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5827396650638669
+        },
+        {
+          "seed": 10002,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.401915195471136,
+          "transferredFrozenRMSEM": 0.4513522119022507,
+          "transferredCorrectedRMSEM": 0.5476159854473307,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5832995290535696
+        },
+        {
+          "seed": 10003,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.4189520581979386,
+          "transferredFrozenRMSEM": 0.47101212000250064,
+          "transferredCorrectedRMSEM": 0.5767369043547992,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5827056280580376
+        },
+        {
+          "seed": 10004,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.3791161666741049,
+          "transferredFrozenRMSEM": 0.42697212838031334,
+          "transferredCorrectedRMSEM": 0.5225746825710202,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5834165734626003
+        },
+        {
+          "seed": 10005,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.36886783117231614,
+          "transferredFrozenRMSEM": 0.417553736468019,
+          "transferredCorrectedRMSEM": 0.5044230208525187,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5834389619814434
+        },
+        {
+          "seed": 10006,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.39860953643380065,
+          "transferredFrozenRMSEM": 0.44800956309505746,
+          "transferredCorrectedRMSEM": 0.5426391646519068,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5833028527404746
+        },
+        {
+          "seed": 10007,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.3726080247726513,
+          "transferredFrozenRMSEM": 0.42156330697273975,
+          "transferredCorrectedRMSEM": 0.5128187023919762,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5832934499523859
+        },
+        {
+          "seed": 10008,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.3792537978558244,
+          "transferredFrozenRMSEM": 0.42826735146087275,
+          "transferredCorrectedRMSEM": 0.522934270709067,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5832259202698347
+        },
+        {
+          "seed": 10009,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.366643197158133,
+          "transferredFrozenRMSEM": 0.41353651442748723,
+          "transferredCorrectedRMSEM": 0.496819628283472,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5837754200858105
+        },
+        {
+          "seed": 10010,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.37474664287237675,
+          "transferredFrozenRMSEM": 0.4221633684092123,
+          "transferredCorrectedRMSEM": 0.5152569848397123,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5835646352533169
+        },
+        {
+          "seed": 10011,
+          "collisionCount": 1,
+          "surfaces": [
+            "right-wall"
+          ],
+          "preImpactForecast": true,
+          "coldFrozenRMSEM": 0.3980823067093466,
+          "transferredFrozenRMSEM": 0.44810683049734357,
+          "transferredCorrectedRMSEM": 0.5430979775182591,
+          "correctionTimeS": 0.6563636363636364,
+          "learningAbstention": "Parameter fitting is restricted to isolated-wall scenes; obstacle/arena scenes use motion updates only.",
+          "allStatesFinite": true,
+          "maximumContactEnergyRatio": 0.5832032291597862
+        }
+      ]
+    }
+  ],
+  "adversary": {
+    "config": {
+      "seed": 3872113139,
+      "restitution": 0.76,
+      "bounceRandomness": 0.13046215230599048,
+      "roughnessDeg": 13.80407718848437,
+      "drag": 0.14,
+      "cameraNoise": 14.518472026102245,
+      "dropRate": 0.3208596534188838,
+      "blackoutMs": 343.64051142241806,
+      "exposureMs": 58.52913699205965,
+      "frameBudget": 28,
+      "sampling": "uniform",
+      "startX": 0.26,
+      "startY": 0.59,
+      "speed": 1.35,
+      "headingDeg": 0,
+      "launchJitter": 0,
+      "obstacles": [],
+      "quadraticDrag": 0,
+      "fieldStrength": 0,
+      "fieldX": 0.95,
+      "fieldY": 0.6,
+      "fieldRadius": 0.3,
+      "fieldMode": "attract",
+      "arenaWalls": false
+    },
+    "candidates": 36,
+    "rejectedCount": 7,
+    "eligibleCount": 29,
+    "baselineFrozenRMSEM": 0.058648642585409784,
+    "selectedFrozenRMSEM": 0.7422336529628734,
+    "selectedCorrectedRMSEM": 0.021094392322157145,
+    "selectedPreDetections": 7,
+    "selectedPostDetections": 4,
+    "requestedFrames": 28,
+    "receivedFrames": 12,
+    "correctionTimeS": 1.7285714285714286,
+    "impactTimeS": 1.0215384086254522,
+    "hostSearchTimeMs": 472.91851399999996,
+    "history": [
+      {
+        "iteration": 1,
+        "seed": 3040497737,
+        "score": 0.06821500345511737,
+        "candidateScore": 0.06821500345511737,
+        "valid": true
+      },
+      {
+        "iteration": 2,
+        "seed": 2298734587,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.14736260522872124,
+        "valid": true
+      },
+      {
+        "iteration": 3,
+        "seed": 2554879423,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.08999129642148984,
+        "valid": true
+      },
+      {
+        "iteration": 4,
+        "seed": 911612728,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.08846188106702002,
+        "valid": true
+      },
+      {
+        "iteration": 5,
+        "seed": 3021126154,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.10616419493130332,
+        "valid": true
+      },
+      {
+        "iteration": 6,
+        "seed": 1199295886,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.044043467838291196,
+        "valid": true
+      },
+      {
+        "iteration": 7,
+        "seed": 1027421538,
+        "score": 0.14736260522872124,
+        "candidateScore": 0.047445057711249246,
+        "valid": true
+      },
+      {
+        "iteration": 8,
+        "seed": 3088918685,
+        "score": 0.14736260522872124,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 9,
+        "seed": 1896113632,
+        "score": 0.22300164563568578,
+        "candidateScore": 0.22300164563568578,
+        "valid": true
+      },
+      {
+        "iteration": 10,
+        "seed": 2916940454,
+        "score": 0.22300164563568578,
+        "candidateScore": 0.10277385294860487,
+        "valid": true
+      },
+      {
+        "iteration": 11,
+        "seed": 3198552770,
+        "score": 0.22300164563568578,
+        "candidateScore": 0.2177624884824519,
+        "valid": true
+      },
+      {
+        "iteration": 12,
+        "seed": 1038018875,
+        "score": 0.22300164563568578,
+        "candidateScore": 0.087047478230432,
+        "valid": true
+      },
+      {
+        "iteration": 13,
+        "seed": 3485987313,
+        "score": 0.22300164563568578,
+        "candidateScore": 0.10918772379007119,
+        "valid": true
+      },
+      {
+        "iteration": 14,
+        "seed": 3244844159,
+        "score": 0.2731170299684929,
+        "candidateScore": 0.2731170299684929,
+        "valid": true
+      },
+      {
+        "iteration": 15,
+        "seed": 1875553728,
+        "score": 0.2731170299684929,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 16,
+        "seed": 2097926624,
+        "score": 0.2731170299684929,
+        "candidateScore": 0.15840117033364476,
+        "valid": true
+      },
+      {
+        "iteration": 17,
+        "seed": 2723179674,
+        "score": 0.3025324818552999,
+        "candidateScore": 0.3025324818552999,
+        "valid": true
+      },
+      {
+        "iteration": 18,
+        "seed": 3872113139,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.7422336529628734,
+        "valid": true
+      },
+      {
+        "iteration": 19,
+        "seed": 98294013,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.3039941875597754,
+        "valid": true
+      },
+      {
+        "iteration": 20,
+        "seed": 780485527,
+        "score": 0.7422336529628734,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 21,
+        "seed": 2213196444,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.1825030893436278,
+        "valid": true
+      },
+      {
+        "iteration": 22,
+        "seed": 1423337393,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.4625103655608617,
+        "valid": true
+      },
+      {
+        "iteration": 23,
+        "seed": 3309898856,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.30582124065639477,
+        "valid": true
+      },
+      {
+        "iteration": 24,
+        "seed": 320773660,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.2839724643853073,
+        "valid": true
+      },
+      {
+        "iteration": 25,
+        "seed": 653030370,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.159317220125674,
+        "valid": true
+      },
+      {
+        "iteration": 26,
+        "seed": 4173747018,
+        "score": 0.7422336529628734,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 27,
+        "seed": 132833251,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.25962017655592584,
+        "valid": true
+      },
+      {
+        "iteration": 28,
+        "seed": 1260725394,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.21566144990570604,
+        "valid": true
+      },
+      {
+        "iteration": 29,
+        "seed": 1999235374,
+        "score": 0.7422336529628734,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 30,
+        "seed": 4107484521,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.6085824159971471,
+        "valid": true
+      },
+      {
+        "iteration": 31,
+        "seed": 2895153477,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.08347499726687031,
+        "valid": true
+      },
+      {
+        "iteration": 32,
+        "seed": 3588171764,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.17253187378355495,
+        "valid": true
+      },
+      {
+        "iteration": 33,
+        "seed": 3499728083,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.1809839037183724,
+        "valid": true
+      },
+      {
+        "iteration": 34,
+        "seed": 2008849748,
+        "score": 0.7422336529628734,
+        "candidateScore": null,
+        "valid": false
+      },
+      {
+        "iteration": 35,
+        "seed": 1331386470,
+        "score": 0.7422336529628734,
+        "candidateScore": 0.2350071060180453,
+        "valid": true
+      },
+      {
+        "iteration": 36,
+        "seed": 3386181112,
+        "score": 0.7422336529628734,
+        "candidateScore": null,
+        "valid": false
+      }
+    ],
+    "note": "Selected-case search result, not held-out adversarial generalization."
+  },
+  "hostRunTimeMs": 5550.22751,
+  "limitations": [
+    "Synthetic toy system, known camera and static geometry calibration. No hardware deployment, timing, memory-budget or energy measurements.",
+    "Analytic low-dimensional student and evolutionary adversary; neither is a trained neural network.",
+    "The generator explicitly draws unobserved impact randomness. Residual error here does not establish irreducibility for real collisions or arbitrary models.",
+    "Uncertainty bands are heuristic and have not been calibrated or evaluated for coverage.",
+    "The clean experiment demonstrates parameter learning within a known model family, not discovery of new physical laws.",
+    "Small deterministic seed sets, no confidence intervals, and no claim of universal superiority for predicted burst sampling.",
+    "Complex-geometry runs update motion but do not fit material parameters; the baseline has no representation for nonlinear force coefficients. A good effective linear fit is not proof of the true force law.",
+    "The numerical simulator uses small-step approximations for fields and quadratic drag, with swept geometric contact checks. No solver-convergence study is claimed.",
+    "Observed rebound identifies an effective velocity jump; no contact force, duration, spin or detailed impact mechanism is recovered."
+  ]
+}
